@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="style.css">
+<canvas id="glCanvas"></canvas>
+  <script  id="vertex-shader-2d" type="notjs">
+  attribute vec2 a_position;
+  uniform vec2 u_resolution;
+
+  void main() {
+    vec2 zeroToOne = a_position / u_resolution;
+    vec2 zeroToTwo = zeroToOne * 2.0;
+    vec2 clipSpace = zeroToTwo - 1.0;
+
+    // gl_Position = vec4(clipSpace, 0, 1);
+    gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1); //invert origin point
+  }
+
+</script>
+<script  id="fragment-shader-2d" type="notjs">
+  precision mediump float;
+  uniform vec4 u_color;
+
+  void main() {
+
+    gl_FragColor = u_color;
+  }
+
+</script><!--
+for most samples webgl-utils only provides shader compiling/linking and
+canvas resizing because why clutter the examples with code that's the same in every sample.
+See https://webglfundamentals.org/webgl/lessons/webgl-boilerplate.html
+and https://webglfundamentals.org/webgl/lessons/webgl-resizing-the-canvas.html
+for webgl-utils, m3, m4, and webgl-lessons-ui.
+-->
+<script src="https://webglfundamentals.org/webgl/resources/webgl-utils.js"></script>
+<script src="script.js"></script>
